@@ -102,7 +102,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import api from '../api';
 
 const currentTab = ref('shop'); // 'shop' або 'print'
 const shopOrders = ref([]);
@@ -114,8 +114,8 @@ const fetchOrders = async () => {
   try {
     // Паралельно завантажуємо обидва види замовлень з правильного порту 3000
     const [shopRes, printRes] = await Promise.all([
-      axios.get('https://luna-shop-backend.onrender.com/api/orders/shop'),
-      axios.get('https://luna-shop-backend.onrender.com/api/orders/printing')
+      api.get('/api/orders/shop'),
+      api.get('/api/orders/printing')
     ]);
     
     shopOrders.value = shopRes.data;
@@ -165,7 +165,7 @@ const formatDate = (dateStr) => {
 const deleteShopOrder = async (id) => {
   if (!confirm("Ви впевнені, що хочете видалити це замовлення магазину з книги обліку?")) return;
   try {
-    const response = await axios.delete(`https://luna-shop-backend.onrender.com/api/orders/shop/${id}`);
+    const response = await api.delete(`/api/orders/shop/${id}`);
     if (response.status === 200) {
       alert("Замовлення магазину видалено!");
       await fetchOrders();
@@ -179,7 +179,7 @@ const deleteShopOrder = async (id) => {
 const deletePrintOrder = async (id) => {
   if (!confirm("Ви впевнені, що хочете видалити це замовлення друку з книги обліку?")) return;
   try {
-    const response = await axios.delete(`https://luna-shop-backend.onrender.com/api/orders/printing/${id}`);
+    const response = await api.delete(`/api/orders/printing/${id}`);
     if (response.status === 200) {
       alert("Замовлення друку видалено!");
       await fetchOrders();

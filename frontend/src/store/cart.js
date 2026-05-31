@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
+import api from '../api';
 
 export const useCartStore = defineStore('cart', {
   state: () => ({
@@ -34,7 +34,7 @@ export const useCartStore = defineStore('cart', {
     },
     async applyPromo(code) {
       try {
-        const response = await axios.post('https://luna-shop-backend.onrender.com/api/promocodes/validate', { code });
+        const response = await api.post('/api/promocodes/validate', { code });
         if (response.data.valid) {
           this.discount = response.data.discount;
           this.appliedPromoCode = code;

@@ -110,7 +110,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import axios from 'axios';
+import api from '../api';
 
 const gameState = ref('idle'); 
 const isFlipped = ref(false);
@@ -159,7 +159,7 @@ const handleCardClick = async (index) => {
   if (cards.value[index].isSpecial) {
     gameState.value = 'won';
     try {
-      const response = await axios.post('https://luna-shop-backend.onrender.com/api/promocodes/generate', { 
+      const response = await api.post('/api/promocodes/generate', { 
         discount: 40 
       });
       promoCode.value = response.data.code;

@@ -76,7 +76,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useCartStore } from '../store/cart';
-import axios from 'axios'; 
+import api from '../api'; 
 
 const cartStore = useCartStore();
 const promoInput = ref('');
@@ -113,7 +113,7 @@ const placeOrder = async () => {
     };
 
     // Відправляємо на Express-сервер
-    const response = await axios.post('https://luna-shop-backend.onrender.com/api/orders/shop', orderData);
+    const response = await api.post('/api/orders/shop', orderData);
 
     if (response.status === 200 || response.status === 201) {
       alert("Замовлення прийняте! Сови вже полетіли до вас.");

@@ -105,7 +105,7 @@
 
 <script setup>
 import { reactive } from 'vue';
-import axios from 'axios';
+import api from '../api';
 
 const formData = reactive({
   name: '',
@@ -122,7 +122,7 @@ const submitForm = async () => {
       details: formData.details
     };
 
-    const response = await axios.post('https://luna-shop-backend.onrender.com/api/orders/printing', orderData);
+    const response = await api.post('/api/orders/printing', orderData);
 
     if (response.status === 200 || response.status === 201) {
       alert(`Дякуємо, ${formData.name}! Ваша заявка занесена в базу. Тепер надішліть ваш макет на пошту.`);

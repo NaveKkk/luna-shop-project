@@ -98,7 +98,7 @@
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
-import axios from 'axios';
+import api from '../api';
 
 const reviews = ref([]);
 const loading = ref(true);
@@ -112,7 +112,7 @@ const newReview = reactive({
 
 const fetchReviews = async () => {
   try {
-    const response = await axios.get('https://luna-shop-backend.onrender.com/api/reviews');
+    const response = await api.get('/api/reviews');
     reviews.value = response.data;
   } catch (error) {
     console.error('Помилка при завантаженні відгуків:', error);
@@ -124,7 +124,7 @@ const fetchReviews = async () => {
 const submitReview = async () => {
   submitting.value = true;
   try {
-    const response = await axios.post('https://luna-shop-backend.onrender.com/api/reviews', {
+    const response = await api.post('/api/reviews', {
       user_name: newReview.user_name,
       rating: newReview.rating,
       comment: newReview.comment
@@ -171,7 +171,7 @@ const formatDate = (dateStr) => {
 const deleteReview = async (id) => {
   if (!confirm("Ви впевнені, що хочете видалити цей відгук з книги відгуків?")) return;
   try {
-    const response = await axios.delete(`https://luna-shop-backend.onrender.com/api/reviews/${id}`);
+    const response = await api.delete(`/api/reviews/${id}`);
     if (response.status === 200) {
       alert("Відгук видалено!");
       await fetchReviews();
