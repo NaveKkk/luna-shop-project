@@ -1,0 +1,324 @@
+:root {
+  --magic-purple: #200934;;  /* Основний фон сайту (оригінальний) */
+  --header-bg: #150a24;     /* Шапка та футер (трохи світліші за фон) */
+  --mystic-gold: #c5a059;   /* Золото для акцентів таро */
+  --light-violet: #4b2c71;  /* Для карток */
+  --text-color: #f0e6ff;
+}
+
+body {
+  background-color: var(--magic-purple);
+  color: var(--text-color);
+  font-family: 'Cinzel', serif; 
+  margin: 0;
+}
+
+.card-tarot-style {
+  border: 1px solid var(--mystic-gold);
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-tarot-style:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(197, 160, 89, 0.5);
+  border-color: #e0aaff;
+}
+
+.banner-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Стилі для логотипу */
+.logo-image {
+  width: 10px;        
+  height: auto;          
+  margin-bottom: 20px;   
+  filter: drop-shadow(0 0 10px rgba(128, 0, 128, 0.5)); 
+  transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: scale(1.05); 
+}
+
+/* Global Page Padding - prevents flush edges */
+.home-container,
+.shop-container,
+.print-page-container,
+.game-page-container,
+.cart-container,
+.orders-page,
+.reviews-page {
+  padding: 40px 5% !important;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .home-container,
+  .shop-container,
+  .print-page-container,
+  .game-page-container,
+  .cart-container,
+  .orders-page,
+  .reviews-page {
+    padding: 30px 15px !important;
+  }
+}
+
+/* Center Section Headings with Magical Dividers */
+.section-title, 
+.formats-section h2, 
+.print-form-section h2,
+.game-board-section h2,
+.card-meanings-section h2,
+.cart-items h2,
+.cart-summary h2,
+.review-form-section h2,
+.reviews-list-section h2 {
+  text-align: center !important;
+  position: relative;
+  padding-bottom: 20px;
+  margin-bottom: 35px;
+  border-bottom: none !important; /* Remove standard borders */
+}
+
+.section-title::after, 
+.formats-section h2::after, 
+.print-form-section h2::after,
+.game-board-section h2::after,
+.card-meanings-section h2::after,
+.cart-items h2::after,
+.cart-summary h2::after,
+.review-form-section h2::after,
+.reviews-list-section h2::after {
+  content: '✦';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--mystic-gold);
+  font-size: 0.9rem;
+  width: 160px;
+  text-align: center;
+  background: linear-gradient(to right, transparent, var(--mystic-gold), transparent) no-repeat center bottom / 100% 1px;
+  height: 20px;
+  line-height: 20px;
+  transition: all 0.4s ease;
+}
+
+/* Hover effects to make headings feel alive */
+.formats-section:hover h2::after,
+.print-form-section:hover h2::after,
+.game-board-section:hover h2::after,
+.card-meanings-section:hover h2::after,
+.cart-items:hover h2::after,
+.cart-summary:hover h2::after,
+.review-form-section:hover h2::after,
+.reviews-list-section:hover h2::after {
+  color: #e0aaff;
+  background: linear-gradient(to right, transparent, #e0aaff, transparent) no-repeat center bottom / 100% 1px;
+  text-shadow: 0 0 10px #e0aaff;
+  transform: translateX(-50%) scale(1.2);
+}
+
+/* Header Content Wrapper */
+.header-content-wrapper {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Delete button (small cross) styling for orders and reviews */
+.delete-btn-cross {
+  background: rgba(255, 77, 77, 0.1);
+  border: 1px solid rgba(255, 77, 77, 0.4);
+  color: #ff4d4d;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.delete-btn-cross:hover {
+  background: #ff4d4d;
+  color: white;
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* Footer Styling */
+.magic-footer {
+  background: var(--header-bg) !important; /* Набагато темніший за фон сайту */
+  border-top: 2px solid var(--mystic-gold);
+  padding: 20px 20px !important;
+  margin-top: auto;
+  text-align: center;
+  box-shadow: 0 -5px 20px rgba(75, 44, 113, 0.3);
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-logo {
+  font-family: 'Cinzel', serif;
+  color: var(--mystic-gold);
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+  font-weight: bold;
+}
+
+.footer-links {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: #b39ddb;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--mystic-gold);
+  text-shadow: 0 0 8px rgba(197, 160, 89, 0.4);
+}
+
+.footer-text {
+  font-size: 0.8rem;
+  color: #8c7b9e;
+  margin: 0;
+}
+
+/* Hamburger Menu Button */
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  z-index: 1001;
+}
+
+.hamburger-btn .bar {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background-color: var(--mystic-gold);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 2px;
+}
+
+/* Hamburger active transformation */
+.hamburger-btn.is-active .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger-btn.is-active .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-btn.is-active .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Responsive Navigation & Mobile optimizations */
+@media (max-width: 1024px) {
+  .hamburger-btn {
+    display: flex;
+  }
+  
+  .navigation {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--header-bg); /* Темний фон шапки */
+    border-left: 2px solid var(--mystic-gold);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    padding: 60px 20px;
+    box-sizing: border-box;
+  }
+  
+  .navigation.menu-open {
+    right: 0;
+  }
+  
+  .navigation a {
+    width: 100%;
+    text-align: center;
+    font-size: 1.05rem !important;
+    margin: 0 !important;
+    padding: 12px 0 !important;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Тонший футер: прибираємо посилання за замовленням */
+  .magic-footer .footer-links {
+    display: none !important;
+  }
+  
+  body {
+    font-size: 15px;
+  }
+  
+  /* Зменшуємо шрифти на мобілці */
+  h1, .page-title, .cart-title, .magic-title {
+    font-size: 1.8rem !important;
+  }
+  
+  h2, .section-title {
+    font-size: 1.3rem !important;
+  }
+  
+  h3 {
+    font-size: 1.1rem !important;
+  }
+  
+  p, span, label, input, button, select, textarea {
+    font-size: 0.95rem !important;
+  }
+}

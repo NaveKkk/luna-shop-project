@@ -1,0 +1,16 @@
+services:
+  - name: luna-shop-backend
+    type: web
+    rootDir: backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    autoDeploy: true
+    plan: free
+
+  - name: luna-shop-official
+    type: web
+    rootDir: frontend
+    env: docker
+    dockerfilePath: ./frontend/Dockerfile
+    autoDeploy: true
+    plan: free
