@@ -1,16 +1,18 @@
 services:
+  # 1. Налаштування Бекенду вашого дипломного проекту
   - name: luna-shop-backend
     type: web
+    runtime: docker
     rootDir: backend
-    env: docker
-    dockerfilePath: ./backend/Dockerfile
+    dockerfilePath: Dockerfile
     autoDeploy: true
     plan: free
 
+  # 2. Налаштування Фронтенду (Vue.js / Vite)
   - name: luna-shop-official
     type: web
+    runtime: docker
     rootDir: frontend
-    env: docker
-    dockerfilePath: ./frontend/Dockerfile
+    dockerfilePath: Dockerfile
     autoDeploy: true
     plan: free
