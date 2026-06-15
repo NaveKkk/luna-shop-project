@@ -280,6 +280,8 @@ label {
 }
 
 input, select, textarea {
+  width: 100%;
+  box-sizing: border-box;
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #4c1d95;

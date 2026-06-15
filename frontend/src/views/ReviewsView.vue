@@ -86,7 +86,14 @@
                 </div>
               </div>
               <div class="review-card-body">
-                <p class="comment-text">« {{ review.comment }} »</p>
+                <p class="comment-text">« {{ isExpanded(review.id) ? review.comment : truncateText(review.comment, 150) }} »</p>
+                <button 
+                  v-if="review.comment && review.comment.length > 150" 
+                  @click="toggleExpand(review.id)" 
+                  class="read-more-btn"
+                >
+                  {{ isExpanded(review.id) ? 'Згорнути' : 'Читати далі...' }}
+                </button>
               </div>
             </div>
           </transition-group>
@@ -183,6 +190,26 @@ const deleteReview = async (id) => {
 };
 
 onMounted(fetchReviews);
+
+const expandedReviews = ref([]);
+
+const toggleExpand = (id) => {
+  if (expandedReviews.value.includes(id)) {
+    expandedReviews.value = expandedReviews.value.filter(item => item !== id);
+  } else {
+    expandedReviews.value.push(id);
+  }
+};
+
+const isExpanded = (id) => {
+  return expandedReviews.value.includes(id);
+};
+
+const truncateText = (text, limit) => {
+  if (!text) return '';
+  if (text.length <= limit) return text;
+  return text.substring(0, limit) + '...';
+};
 </script>
 
 <style scoped>
@@ -255,6 +282,8 @@ label {
 }
 
 input, textarea {
+  width: 100%;
+  box-sizing: border-box;
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #4c1d95;
@@ -415,6 +444,26 @@ input:focus, textarea:focus {
   line-height: 1.6;
   font-style: italic;
   color: #e0aaff;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.read-more-btn {
+  background: none;
+  border: none;
+  color: #c5a059;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  font-family: inherit;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.read-more-btn:hover {
+  color: #e2bc7a;
 }
 
 /* Анімація появи */

@@ -296,6 +296,9 @@ onMounted(fetchOrders);
 .order-body p {
   margin: 8px 0;
   line-height: 1.5;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .items-list-container {
@@ -311,6 +314,9 @@ onMounted(fetchOrders);
 .items-list li {
   padding: 3px 0;
   color: #e0aaff;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .price-section {
