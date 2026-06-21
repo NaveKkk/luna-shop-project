@@ -82,7 +82,12 @@
                       {{ star <= review.rating ? '★' : '☆' }}
                     </span>
                   </div>
-                  <button @click="deleteReview(review.id)" class="delete-btn-cross" title="Видалити відгук">×</button>
+                  <button 
+                    v-if="isMyReview(review.id)" 
+                    @click="deleteReview(review.id)" 
+                    class="delete-btn-cross" 
+                    title="Видалити відгук"
+                  >×</button>
                 </div>
               </div>
               <div class="review-card-body">
@@ -140,6 +145,13 @@ const submitReview = async () => {
     if (response.status === 200 || response.status === 201) {
       alert('Дякуємо! Ваш відгук успішно опубліковано.');
       
+      const newReviewId = response.data.id;
+      if (newReviewId) {
+        const myReviews = JSON.parse(localStorage.getItem('my_reviews') || '[]');
+        myReviews.push(newReviewId);
+        localStorage.setItem('my_reviews', JSON.stringify(myReviews));
+      }
+      
       // Очищуємо форму
       newReview.user_name = '';
       newReview.rating = 5;
@@ -181,6 +193,12 @@ const deleteReview = async (id) => {
     const response = await api.delete(`/api/reviews/${id}`);
     if (response.status === 200) {
       alert("Відгук видалено!");
+      
+      // Видаляємо ID з localStorage
+      const myReviews = JSON.parse(localStorage.getItem('my_reviews') || '[]');
+      const updated = myReviews.filter(item => item !== id);
+      localStorage.setItem('my_reviews', JSON.stringify(updated));
+      
       await fetchReviews();
     }
   } catch (error) {
@@ -209,6 +227,11 @@ const truncateText = (text, limit) => {
   if (!text) return '';
   if (text.length <= limit) return text;
   return text.substring(0, limit) + '...';
+};
+
+const isMyReview = (id) => {
+  const myReviews = JSON.parse(localStorage.getItem('my_reviews') || '[]');
+  return myReviews.includes(id);
 };
 </script>
 
