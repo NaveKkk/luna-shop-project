@@ -118,8 +118,12 @@ const fetchOrders = async () => {
       api.get('/api/orders/printing')
     ]);
     
-    shopOrders.value = shopRes.data;
-    printOrders.value = printRes.data;
+    // Фільтруємо замовлення за збереженими в localStorage ID
+    const myShopOrdersIds = JSON.parse(localStorage.getItem('my_shop_orders') || '[]');
+    const myPrintOrdersIds = JSON.parse(localStorage.getItem('my_print_orders') || '[]');
+    
+    shopOrders.value = shopRes.data.filter(order => myShopOrdersIds.includes(order.id));
+    printOrders.value = printRes.data.filter(order => myPrintOrdersIds.includes(order.id));
   } catch (error) {
     console.error("Помилка завантаження замовлень:", error);
   } finally {
@@ -168,6 +172,12 @@ const deleteShopOrder = async (id) => {
     const response = await api.delete(`/api/orders/shop/${id}`);
     if (response.status === 200) {
       alert("Замовлення магазину видалено!");
+      
+      // Видаляємо ID з localStorage
+      const shopOrdersIds = JSON.parse(localStorage.getItem('my_shop_orders') || '[]');
+      const updated = shopOrdersIds.filter(item => item !== id);
+      localStorage.setItem('my_shop_orders', JSON.stringify(updated));
+      
       await fetchOrders();
     }
   } catch (error) {
@@ -182,6 +192,12 @@ const deletePrintOrder = async (id) => {
     const response = await api.delete(`/api/orders/printing/${id}`);
     if (response.status === 200) {
       alert("Замовлення друку видалено!");
+      
+      // Видаляємо ID з localStorage
+      const printOrdersIds = JSON.parse(localStorage.getItem('my_print_orders') || '[]');
+      const updated = printOrdersIds.filter(item => item !== id);
+      localStorage.setItem('my_print_orders', JSON.stringify(updated));
+      
       await fetchOrders();
     }
   } catch (error) {

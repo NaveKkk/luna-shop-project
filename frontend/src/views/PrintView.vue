@@ -127,6 +127,13 @@ const submitForm = async () => {
     if (response.status === 200 || response.status === 201) {
       alert(`Дякуємо, ${formData.name}! Ваша заявка занесена в базу. Тепер надішліть ваш макет на пошту.`);
       
+      const orderId = response.data.id;
+      if (orderId) {
+        const printOrders = JSON.parse(localStorage.getItem('my_print_orders') || '[]');
+        printOrders.push(orderId);
+        localStorage.setItem('my_print_orders', JSON.stringify(printOrders));
+      }
+      
       // Очищуємо форму
       formData.name = '';
       formData.email = '';

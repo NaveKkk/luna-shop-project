@@ -117,6 +117,14 @@ const placeOrder = async () => {
 
     if (response.status === 200 || response.status === 201) {
       alert("Замовлення прийняте! Сови вже полетіли до вас.");
+      
+      const orderId = response.data.id;
+      if (orderId) {
+        const shopOrders = JSON.parse(localStorage.getItem('my_shop_orders') || '[]');
+        shopOrders.push(orderId);
+        localStorage.setItem('my_shop_orders', JSON.stringify(shopOrders));
+      }
+      
       cartStore.clearCart(); // Очищуємо кошик після успіху
       userEmail.value = '';
     }
